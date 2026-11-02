@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hub // Workspace</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0c;
+            --panel-bg: rgba(18, 18, 24, 0.85);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-primary: #f0f0f5;
+            --text-secondary: #8a8a9d;
+            --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Top Bar */
+        header {
+            height: 56px;
+            background: var(--panel-bg);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+            backdrop-filter: blur(12px);
+            z-index: 10;
+        }
+
+        .brand {
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        select {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.8125rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        select:focus {
+            border-color: var(--accent);
+        }
+
+        .btn {
+            background: var(--accent);
+            color: #ffffff;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.8125rem;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Embedded App Container */
+        main {
+            flex: 1;
+            width: 100%;
+            height: calc(100vh - 56px);
+            position: relative;
+            background: #000000;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 8px;
+            right: 12px;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            pointer-events: none;
+            z-index: 5;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand">HUB DIRECTORY</div>
+        <div class="controls">
+            <select id="projectSelect" onchange="loadProject(this.value)">
+                <!-- Dropdown items dynamically injected from JS -->
+            </select>
+            <a id="openExternal" href="#" target="_blank" class="btn">Pop Out</a>
+        </div>
+    </header>
+
+    <main>
+        <iframe id="appViewer" src="" title="App Viewer"></iframe>
+        <footer>@gray_exists0</footer>
+    </main>
+
+    <script>
+        // ==========================================
+        // EDIT YOUR SITES HERE
+        // Add, remove, or modify objects in this array.
+        // ==========================================
+        const projects = [
+            {
+                name: "Wrietm Prompt Architect",
+                url: "./wrietm-prompt-architect/index.html"
+            },
+            {
+                name: "Cloud Storage Vault",
+                url: "./cloud-vault/index.html"
+            },
+            {
+                name: "Space Shooter Arcade",
+                url: "./space-shooter/index.html"
+            }
+        ];
+
+        const select = document.getElementById('projectSelect');
+        const iframe = document.getElementById('appViewer');
+        const externalBtn = document.getElementById('openExternal');
+
+        // Populate dropdown options automatically
+        select.innerHTML = projects.map(p => `<option value="${p.url}">${p.name}</option>`).join('');
+
+        function loadProject(url) {
+            iframe.src = url;
+            externalBtn.href = url;
+        }
+
+        // Initialize with the first project in the list
+        if (projects.length > 0) {
+            loadProject(projects[0].url);
+        }
+    </script>
+</body>
+</html>
