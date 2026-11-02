@@ -121,7 +121,7 @@
         <div class="brand">HUB DIRECTORY</div>
         <div class="controls">
             <select id="projectSelect" onchange="loadProject(this.value)">
-                <!-- Dropdown items dynamically injected from JS -->
+                <!-- Options populated dynamically from JavaScript -->
             </select>
             <a id="openExternal" href="#" target="_blank" class="btn">Pop Out</a>
         </div>
@@ -135,20 +135,23 @@
     <script>
         // ==========================================
         // EDIT YOUR SITES HERE
-        // Add, remove, or modify objects in this array.
         // ==========================================
         const projects = [
             {
+                name: "Google Search",
+                url: "https://r.jina.ai/https://www.google.com"
+            },
+            {
                 name: "Wrietm Prompt Architect",
-                url: "./mgeko.cc/"
+                url: "./wrietm-prompt-architect/index.html"
             },
             {
                 name: "Cloud Storage Vault",
-                url: ".google.com"
+                url: "./cloud-vault/index.html"
             },
             {
                 name: "Space Shooter Arcade",
-                url: "./xnxx.com"
+                url: "./space-shooter/index.html"
             }
         ];
 
@@ -164,7 +167,7 @@
             externalBtn.href = url;
         }
 
-        // Initialize with the first project in the list
+        // Initialize with the first project (Google)
         if (projects.length > 0) {
             loadProject(projects[0].url);
         }
